@@ -60,19 +60,31 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
 
 body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--t1);
   min-height: 100dvh;
+  height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 20px 16px 40px;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile: tighter vertical padding */
+@media (max-width: 600px) {
+  body {
+    padding: 12px 10px 32px;
+    align-items: flex-start;
+  }
 }
 
 /* Ambient orbs */
@@ -112,6 +124,10 @@ body::after {
   max-width: 700px;
 }
 
+@media (max-width: 600px) {
+  .app { max-width: 100%; }
+}
+
 /* ── Screen animation ───────────────────────────────────── */
 .screen-enter {
   animation: screenIn 0.48s var(--ease) forwards;
@@ -141,7 +157,16 @@ body::after {
 }
 
 @media (max-width: 600px) {
-  .card { padding: 28px 20px; border-radius: var(--r-lg); }
+  .card {
+    padding: 22px 16px;
+    border-radius: var(--r-lg);
+    border-left: none;
+    border-right: none;
+    border-radius: 16px;
+  }
+}
+@media (max-width: 380px) {
+  .card { padding: 18px 12px; }
 }
 
 /* ── Badge ──────────────────────────────────────────────── */
@@ -195,10 +220,10 @@ body::after {
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 26px;
+  gap: 10px;
+  margin-bottom: 22px;
 }
-@media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+@media (max-width: 500px) { .info-grid { grid-template-columns: 1fr; gap: 8px; } }
 
 .info-item {
   display: flex;
@@ -304,6 +329,9 @@ body::after {
   position: relative;
   letter-spacing: -0.01em;
   overflow: hidden;
+  /* Better touch targets on mobile */
+  min-height: 48px;
+  touch-action: manipulation;
 }
 .btn::after {
   content: "";
@@ -334,6 +362,11 @@ body::after {
 .btn-action.reward   { background: linear-gradient(135deg, var(--reward-a), var(--reward-b));     box-shadow: 0 8px 28px var(--reward-glow); }
 .btn-action:hover    { transform: translateY(-3px); filter: brightness(1.08); }
 .btn-action:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+
+@media (max-width: 600px) {
+  .btn-action { font-size: 15px; padding: 16px 20px; }
+  .btn-primary { padding: 16px 20px; font-size: 15px; }
+}
 
 .btn-download {
   background: linear-gradient(135deg, var(--delivery-a), var(--delivery-b));
