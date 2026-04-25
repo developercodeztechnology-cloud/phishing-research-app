@@ -63,28 +63,19 @@
 html {
   scroll-behavior: smooth;
   height: 100%;
+  overflow: hidden;
 }
 
 body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--t1);
-  min-height: 100dvh;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 20px 16px 40px;
-  overflow-x: hidden;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;            /* scroll happens inside .app */
+  display: block;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
-}
-
-/* Mobile: tighter vertical padding */
-@media (max-width: 600px) {
-  body {
-    padding: 12px 10px 32px;
-    align-items: flex-start;
-  }
 }
 
 /* Ambient orbs */
@@ -121,11 +112,26 @@ body::after {
   position: relative;
   z-index: 1;
   width: 100%;
+  max-width: 100%;             /* fill full screen width */
+  height: 100dvh;              /* fill full screen height */
+  overflow-y: auto;            /* scroll content inside */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px 48px;
+  box-sizing: border-box;
+}
+
+/* On larger screens, constrain content width for readability */
+.app > * {
+  width: 100%;
   max-width: 700px;
 }
 
 @media (max-width: 600px) {
-  .app { max-width: 100%; }
+  .app { padding: 14px 10px 40px; }
 }
 
 /* ── Screen animation ───────────────────────────────────── */
